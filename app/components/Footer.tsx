@@ -14,6 +14,8 @@ export default function Footer() {
           <Image
             src="/placeholder.jpg"
             alt="Map placeholder"
+            width={500}   // required
+            height={300}  // required
             className="map"
           />
           <Typography variant="body2">

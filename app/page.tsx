@@ -175,20 +175,31 @@ export default function Home() {
       </Box>
       
 
-      <Box id="skills" sx={{ background: "#e9ece5", py: { xs: 6, md: 10 } }}>
-        <Container maxWidth="lg">
-          <Typography
-            variant="h3"
-            sx={{ fontWeight: 700, mb: 3, textAlign: "center" }}
-          >
-            Skills
-          </Typography>
+      <Box id="skills" sx={{ py: { xs: 6, md: 10 }, background: '#99ff00ff' }}>
+        <Container maxWidth="lg" className="skills-content">
+          <Box sx={{ display: "flex", justifyContent: "center", width: '100%' }}>
+            <Typography
+              variant="h3"
+              sx={{
+                  fontWeight: 700,
+                  mb: 5,
+                  textAlign: "center",
+                  color: "#ffffffff",
+                  display: "inline-block",      // underline matches text width
+                  borderBottom: "6px solid #ffffffff", // thick underline
+                  pb: "1rem"
+                }}
+              className="kaisei"
+            >
+              Skills
+            </Typography>
+          </Box>
           <Grid container spacing={4}>
             <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-              <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+              <Typography variant="h5" sx={{ fontWeight: 600, mb: 2, color: "#fff" }} className="kaisei">
                 Front End
               </Typography>
-              <Typography sx={{ mb: 2 }}>
+              <Typography sx={{ mb: 2, color: "#e0e0e0" }}>
                 The part users see and interact with, handling design, layout, and responsiveness.
               </Typography>
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
@@ -202,34 +213,33 @@ export default function Home() {
                   "NextJS",
                   "JQuery",
                 ].map((skill) => (
-                  <Chip key={skill} label={skill} />
+                  <Chip sx={{ color: 'white' }} key={skill} label={skill} color="default" />
                 ))}
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-              <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+              <Typography variant="h5" sx={{ fontWeight: 600, mb: 2, color: "#fff" }} className="kaisei">
                 Back End
               </Typography>
-              <Typography sx={{ mb: 2 }}>
-                The behind-the-scenes logic that processes data, runs the app, and connects to
-                databases.
+              <Typography sx={{ mb: 2, color: "#e0e0e0" }}>
+                The behind-the-scenes logic that processes data, runs the app, and connects to databases.
               </Typography>
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                 {["PHP", "NodeJS", "ExpressJS", "MySQL", "PostgreSQL"].map((skill) => (
-                  <Chip key={skill} label={skill} />
+                  <Chip sx={{ color: 'white' }} key={skill} label={skill} />
                 ))}
               </Box>
             </Grid>
             <Grid size={{ xs: 12, sm: 12, md: 4 }}>
-              <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+              <Typography variant="h5" sx={{ fontWeight: 600, mb: 2, color: "#fff" }} className="kaisei">
                 Tools
               </Typography>
-              <Typography sx={{ mb: 2 }}>
+              <Typography sx={{ mb: 2, color: "#e0e0e0" }}>
                 The essential helpers for coding, testing, collaboration, and project management.
               </Typography>
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                 {["Git", "VSCode", "Postman", "Figma"].map((tool) => (
-                  <Chip key={tool} label={tool} />
+                  <Chip sx={{ color: 'white' }} key={tool} label={tool} />
                 ))}
               </Box>
             </Grid>
@@ -264,7 +274,7 @@ export default function Home() {
                 alt="Project 1"
                 width={500}   // required
                 height={300}  // required
-                style={{ width: "100%", borderRadius: 8, marginBottom: 16 }}
+                style={{ width: "100%", height: "auto", borderRadius: 8, marginBottom: 16 }}
               />
               <Typography variant="h6">WE HELP YOU REDUCE CONSTRUCTION COSTS</Typography>
             </Box>
@@ -288,7 +298,7 @@ export default function Home() {
                 alt="Project 1"
                 width={500}   // required
                 height={300}  // required
-                style={{ width: "100%", borderRadius: 8, marginBottom: 16 }}
+                style={{ width: "100%", height: "auto", borderRadius: 8, marginBottom: 16 }}
               />
               <Typography variant="h6">METRO PROJECTS</Typography>
               <Button variant="contained" color="warning" sx={{ mt: 1, borderRadius: 8 }}>
