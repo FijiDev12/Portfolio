@@ -1,7 +1,7 @@
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "../app/css/General.css";
-import { Box, Button, Typography, Container, Grid, Chip, Avatar } from "@mui/material";
+import { Box, Button, Typography, Container, Grid, Chip } from "@mui/material";
 import Image from "next/image";
 import headerImage from "../public/images/general/Header_Image.jpeg";
 import aboutImage from "../public/images/general/About_Image.jpeg";
@@ -120,59 +120,57 @@ export default function Home() {
           </Typography>
           </Box>
 
-         <Grid container spacing={4} alignItems="stretch">
-  <Grid
-    size={{ xs: 12, md: 5, lg: 5 }}
-    sx={{
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}
-  >
-    <Box
-      className="AboutImage"
-      sx={{
-        width: "100%",
-        height: { xs: 300, md: "100%" }, // 👈 height for mobile, stretch for desktop
-        position: "relative",
-        borderRadius: { xs: "1rem", md: "1rem 0 0 1rem" },
-        overflow: "hidden",
-      }}
-    >
-      <Image
-        src={aboutImage}
-        alt="About Image"
-        fill
-        style={{ objectFit: "cover" }}
-      />
-    </Box>
-  </Grid>
+        <Grid container spacing={4} alignItems="stretch">
+          <Grid
+            size={{ xs: 12, md: 5, lg: 5 }}
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Box
+              className="AboutImage"
+              sx={{
+                width: "100%",
+                height: { xs: 300, md: "100%" }, // 👈 height for mobile, stretch for desktop
+                position: "relative",
+                borderRadius: { xs: "1rem", md: "1rem 0 0 1rem" },
+                overflow: "hidden",
+              }}
+            >
+              <Image
+                src={aboutImage}
+                alt="About Image"
+                fill
+                style={{ objectFit: "cover" }}
+              />
+            </Box>
+          </Grid>
 
-  <Grid size={{ xs: 12, md: 7, lg: 7 }}>
-    <Box
-      sx={{
-        bgcolor: "#DDDDDB",
-        p: { xs: 4, md: 8 },
-        borderRadius: { xs: "1rem", md: "0 1rem 1rem 0" },
-        height: "100%",
-      }}
-    >
-      <Typography sx={{ color: "#585D59" }}>
-        “Hi, I'm Carl. I’ve been a developer for three years, with strong experience in
-        frontend and solid skills in fullstack development. I enjoy building clean,
-        user-friendly websites and applications with JavaScript, CSS, and modern frameworks,
-        while also working on the backend when needed. What drives me is solving real
-        problems, learning new things, and collaborating with others to create useful,
-        well-built software.”
-      </Typography>
-      <Button variant="contained" color="warning" sx={{ mt: 2, borderRadius: 8 }}>
-        Download CV
-      </Button>
-    </Box>
-  </Grid>
-</Grid>
-
-
+          <Grid size={{ xs: 12, md: 7, lg: 7 }}>
+            <Box
+              sx={{
+                bgcolor: "#DDDDDB",
+                p: { xs: 4, md: 8 },
+                borderRadius: { xs: "1rem", md: "0 1rem 1rem 0" },
+                height: "100%",
+              }}
+            >
+              <Typography sx={{ color: "#585D59" }}>
+                “Hi, I&apos;m Carl. I’ve been a developer for three years, with strong experience in
+                frontend and solid skills in fullstack development. I enjoy building clean,
+                user-friendly websites and applications with JavaScript, CSS, and modern frameworks,
+                while also working on the backend when needed. What drives me is solving real
+                problems, learning new things, and collaborating with others to create useful,
+                well-built software.”
+              </Typography>
+              <Button variant="contained" color="warning" sx={{ mt: 2, borderRadius: 8 }}>
+                Download CV
+              </Button>
+            </Box>
+          </Grid>
+        </Grid>
         </Container>
       </Box>
       
@@ -261,9 +259,11 @@ export default function Home() {
                 justifyContent: "center",
               }}
             >
-              <img
+              <Image
                 src="/placeholder.jpg"
                 alt="Project 1"
+                width={500}   // required
+                height={300}  // required
                 style={{ width: "100%", borderRadius: 8, marginBottom: 16 }}
               />
               <Typography variant="h6">WE HELP YOU REDUCE CONSTRUCTION COSTS</Typography>
@@ -283,9 +283,11 @@ export default function Home() {
                 justifyContent: "center",
               }}
             >
-              <img
+              <Image
                 src="/placeholder.jpg"
-                alt="Project 2"
+                alt="Project 1"
+                width={500}   // required
+                height={300}  // required
                 style={{ width: "100%", borderRadius: 8, marginBottom: 16 }}
               />
               <Typography variant="h6">METRO PROJECTS</Typography>
