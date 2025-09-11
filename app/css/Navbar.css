@@ -1,0 +1,40 @@
+
+.navbar {
+  background: linear-gradient(90deg, #0d3b24 0%, #1e5631 100%) !important;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-weight: bold;
+  letter-spacing: 2px;
+}
+
+.navLinks {
+  display: flex;
+  gap: 1rem;
+  color: white !important;
+}
+
+.linkBtn {
+  color: white !important;
+  text-transform: none;
+}
+
+/* Mobile styles */
+.menuBtn {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .navLinks {
+    display: none; /* Hide desktop links */
+  }
+  .menuBtn {
+    display: block !important; /* Show hamburger */
+  }
+}
