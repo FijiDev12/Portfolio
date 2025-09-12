@@ -151,7 +151,7 @@ export default function Home() {
               </Typography>
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
                 <Button variant="contained" size="large" sx={{ borderRadius: 8, background:"#C06B46", textAlign: "center" }} href="#projects">
-                  View Projects
+                  Projects
                 </Button>
                 <Button variant="outlined"  size="large" sx={{ borderRadius: 8, color:"#C06B46", borderColor:"#C06B46" }} onClick={openLetsTalkModal}>
                   Let’s Talk
