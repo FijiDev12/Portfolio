@@ -42,16 +42,16 @@ export default function Home() {
   // Handle form submission
   const handleLetsTalkSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
+    
     const formData = new FormData(event.currentTarget);
-    const email = formData.get("email")?.toString() || "";
-    const subject = formData.get("subject")?.toString() || "";
-    const message = formData.get("message")?.toString() || "";
-
-    const telegramMessage = `Email: ${email}\nSubject: ${subject}\nMessage: ${message}`;
+    const payload = {
+      email: formData.get("email")?.toString() || "",
+      subject: formData.get("subject")?.toString() || "",
+      message: formData.get("message")?.toString() || "",
+    };
 
     try {
-      await sendTelegramMessage(telegramMessage);
+      await sendTelegramMessage(payload);
       toast.success("Message sent successfully! ✅");
       closeLetsTalkModal();
     } catch (err) {
@@ -59,6 +59,7 @@ export default function Home() {
       toast.error("Failed to send message. ❌");
     }
   };
+
 
   return (
     <>
