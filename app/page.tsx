@@ -1,6 +1,8 @@
 'use client';
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
+import dynamic from "next/dynamic";
+
+const Navbar = dynamic(() => import("./components/Navbar"), { ssr: false });
+const Footer = dynamic(() => import("./components/Footer"), { ssr: false });
 import "../app/css/General.css";
 import { useState } from "react";
 import { Box, Button, Typography, Container, Grid, Chip, Modal, Stack, TextField } from "@mui/material";
@@ -58,19 +60,18 @@ export default function Home() {
     }
   };
 
-
   return (
     <>
-      <ToastContainer 
-        position="top-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        pauseOnHover
-        draggable
-        pauseOnFocusLoss
-      />
+    <ToastContainer
+      position="top-right"
+      autoClose={3000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      pauseOnHover
+      draggable
+      pauseOnFocusLoss
+    />
       {/* Lets Talk Modal */}
       <Modal
         open={isLetsTalkModalOpen}

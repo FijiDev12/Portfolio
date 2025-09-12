@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import "../css/Footer.css";
 import { Box, Typography, Link, IconButton, Stack } from "@mui/material";
