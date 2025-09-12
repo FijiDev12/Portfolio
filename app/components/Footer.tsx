@@ -1,57 +1,112 @@
 import React from "react";
 import "../css/Footer.css";
-import { Box, Typography, Link, IconButton } from "@mui/material";
+import { Box, Typography, Link, IconButton, Stack } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import Image from "next/image";
+import FooterMap from "./FooterMap";
+
 export default function Footer() {
   return (
-    <footer className="footer">
+    <Box component="footer" className="footer">
       <Box className="footerContent">
+        {/* Left */}
         <Box className="left">
-          <Image
-            src="/placeholder.jpg"
-            alt="Map placeholder"
-            width={500}   // required
-            height={300}  // required
-            className="map"
-          />
+          <FooterMap />
           <Typography variant="body2">
-            Brgy. San Pablo, Sto. Tomas, Batangas<br />
-            +6343 987 6543<br />
-            carlcarlvh@gmail.com
+            Brgy. San Pablo, Sto. Tomas, Batangas
+            <br />
+            +6343 987 6543
+            <br />
+            carloquila.fiji@gmail.com
           </Typography>
         </Box>
-        <Box className="center">
+
+        {/* Center */}
+        <Box
+          className="center"
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <Typography variant="h6" className="vision">
             Let’s make your vision a reality
           </Typography>
-          <Typography variant="body2" className="desc">
-            I create modern, reliable, and user-friendly software and websites designed to bring your ideas to life.
+          <Typography
+            variant="body2"
+            className="desc"
+            sx={{ textAlign: "center", mb: 2 }}
+          >
+            I create modern, reliable, and user-friendly software and websites
+            designed to bring your ideas to life.
           </Typography>
-          <Box>
-            <IconButton href="#" color="inherit"><FacebookIcon /></IconButton>
-            <IconButton href="#" color="inherit"><GitHubIcon /></IconButton>
-            <IconButton href="#" color="inherit"><InstagramIcon /></IconButton>
-            <IconButton href="#" color="inherit"><LinkedInIcon /></IconButton>
-          </Box>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            <IconButton
+              href="https://www.facebook.com/carl.oquila/"
+              color="inherit"
+              target="_blank"
+              rel="noopener"
+            >
+              <FacebookIcon />
+            </IconButton>
+            <IconButton
+              href="https://github.com/FijiDev12"
+              color="inherit"
+              target="_blank"
+              rel="noopener"
+            >
+              <GitHubIcon />
+            </IconButton>
+            <IconButton
+              href="https://www.instagram.com/cxrl.json/"
+              color="inherit"
+              target="_blank"
+              rel="noopener"
+            >
+              <InstagramIcon />
+            </IconButton>
+            <IconButton
+              href="https://www.linkedin.com/in/carl-jerson-oquila-72280a235/"
+              color="inherit"
+              target="_blank"
+              rel="noopener"
+            >
+              <LinkedInIcon />
+            </IconButton>
+          </Stack>
         </Box>
-        <Box className="right">
+
+
+        {/* Right */}
+        <Box className="right" sx={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
           <Typography variant="h6">Pages</Typography>
-          <ul className="pages">
-            <li><Link href="/">Home</Link></li>
-            <li><Link href="#about">About</Link></li>
-            <li><Link href="#skills">Skills</Link></li>
-            <li><Link href="#projects">Projects</Link></li>
-            <li><Link href="#contact">Contact</Link></li>
-          </ul>
+          <Stack spacing={1}>
+            <Link href="/" underline="hover" color="inherit">
+              Home
+            </Link>
+            <Link href="#about" underline="hover" color="inherit">
+              About
+            </Link>
+            <Link href="#skills" underline="hover" color="inherit">
+              Skills
+            </Link>
+            <Link href="#projects" underline="hover" color="inherit">
+              Projects
+            </Link>
+            <Link href="#contact" underline="hover" color="inherit">
+              Contact
+            </Link>
+          </Stack>
         </Box>
       </Box>
+
       <Typography variant="body2" align="center" className="copyright">
         © 2025 Fiji. All rights reserved.
       </Typography>
-    </footer>
+    </Box>
   );
 }

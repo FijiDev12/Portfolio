@@ -1,10 +1,18 @@
+'use client';
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import "../app/css/General.css";
-import { Box, Button, Typography, Container, Grid, Chip } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, Typography, Container, Grid, Chip, Modal, Stack, TextField } from "@mui/material";
 import Image from "next/image";
 import headerImage from "../public/images/general/Header_Image.jpeg";
 import aboutImage from "../public/images/general/About_Image.jpeg";
+import draftTech_Project from "../public/images/general/Draftech.png";
+import Metro_Project from "../public/images/general/Metro.png";
+import { sendTelegramMessage } from '@/app/utils/telegram_Talk';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const items = [
   "Website",
@@ -22,8 +30,105 @@ const items = [
 ];
 
 export default function Home() {
+    // Modal state
+  const [isLetsTalkModalOpen, setIsLetsTalkModalOpen] = useState(false);
+
+  // Open modal
+  const openLetsTalkModal = () => setIsLetsTalkModalOpen(true);
+
+  // Close modal
+  const closeLetsTalkModal = () => setIsLetsTalkModalOpen(false);
+
+  // Handle form submission
+  const handleLetsTalkSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    const formData = new FormData(event.currentTarget);
+    const email = formData.get("email") || "";
+    const subject = formData.get("subject") || "";
+    const message = formData.get("message") || "";
+
+    const telegramMessage = `Email: ${email}\nSubject: ${subject}\nMessage: ${message}`;
+
+    try {
+      await sendTelegramMessage(telegramMessage);
+      toast.success("Message sent successfully! ✅"); // <-- toast here
+      closeLetsTalkModal();
+    } catch (err) {
+      console.error("Failed to send Telegram message:", err);
+      toast.error("Failed to send message. ❌"); // <-- error toast
+    }
+  };
+
+
   return (
     <>
+      <ToastContainer 
+        position="top-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+        pauseOnFocusLoss
+      />
+      {/* Lets Talk Modal */}
+      <Modal
+        open={isLetsTalkModalOpen}
+        onClose={closeLetsTalkModal}
+        aria-labelledby="lets-talk-modal-title"
+      >
+        <Box
+          component="form"
+          onSubmit={handleLetsTalkSubmit}
+          sx={{
+            position: "absolute" as "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            width: { xs: "90%", sm: 400 },
+            bgcolor: "background.paper",
+            borderRadius: 2,
+            boxShadow: 24,
+            p: 4,
+          }}
+        >
+          <Typography id="lets-talk-modal-title" variant="h6" sx={{ mb: 2, color: "#424240" }} className="kaisei">
+            Let’s Talk
+          </Typography>
+          <Stack spacing={2}>
+            <TextField
+              required
+              label="Email"
+              name="email"
+              type="email"
+              fullWidth
+            />
+            <TextField
+              required
+              label="Subject"
+              name="subject"
+              fullWidth
+            />
+            <TextField
+              required
+              label="Message"
+              name="message"
+              multiline
+              rows={4}
+              fullWidth
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              sx={{ borderRadius: 2, backgroundColor: "#C06B46" }}
+            >
+              Send
+            </Button>
+          </Stack>
+        </Box>
+      </Modal>
       <Navbar />
       {/* Header */}
       <Box
@@ -45,10 +150,10 @@ export default function Home() {
                 results that exceed expectations.
               </Typography>
               <Box sx={{ display: "flex", gap: 2, flexWrap: "wrap" }}>
-                <Button variant="contained" size="large" sx={{ borderRadius: 8, background:"#C06B46" }}>
-                  Hire Me
+                <Button variant="contained" size="large" sx={{ borderRadius: 8, background:"#C06B46" }} href="#projects">
+                  View Projects
                 </Button>
-                <Button variant="outlined"  size="large" sx={{ borderRadius: 8, color:"#C06B46", borderColor:"#C06B46" }}>
+                <Button variant="outlined"  size="large" sx={{ borderRadius: 8, color:"#C06B46", borderColor:"#C06B46" }} onClick={openLetsTalkModal}>
                   Let’s Talk
                 </Button>
               </Box>
@@ -67,7 +172,7 @@ export default function Home() {
         </Container>
       </Box>
 
-      
+      {/* About */}
       <Box sx={{ background: '#EEF0E5'}} id="about">
         <Box sx={{ background: "#1e5631", py: 2 }}>
         <div className="ticker">
@@ -165,7 +270,13 @@ export default function Home() {
                 problems, learning new things, and collaborating with others to create useful,
                 well-built software.”
               </Typography>
-              <Button variant="contained" color="warning" sx={{ mt: 2, borderRadius: 8 }}>
+              <Button
+                variant="contained"
+                sx={{ mt: 2, borderRadius: 8, background:"#C06B46" }}
+                component="a"
+                href="/documents/Carl_Oquila%28Resume%29.pdf"
+                download
+              >
                 Download CV
               </Button>
             </Box>
@@ -174,7 +285,7 @@ export default function Home() {
         </Container>
       </Box>
       
-
+      {/* Skills */}
       <Box id="skills" sx={{ py: { xs: 6, md: 10 }, background: '#99ff00ff' }}>
         <Container maxWidth="lg" className="skills-content">
           <Box sx={{ display: "flex", justifyContent: "center", width: '100%' }}>
@@ -210,6 +321,7 @@ export default function Home() {
                   "Typescript",
                   "Bootstrap",
                   "ReactJS",
+                  "React Native",
                   "NextJS",
                   "JQuery",
                 ].map((skill) => (
@@ -247,87 +359,147 @@ export default function Home() {
         </Container>
       </Box>
 
-      <Container maxWidth="lg" id="projects" sx={{ py: { xs: 6, md: 10 } }}>
-        <Typography
-          variant="h3"
-          sx={{ fontWeight: 700, mb: 3, textAlign: "center" }}
-        >
-          Projects
-        </Typography>
-        <Grid container spacing={4} justifyContent="center">
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Box
+      {/* Projects */}
+      <Box id="projects" sx={{ background: '#EEF0E5'}}>
+        <Container maxWidth="lg" sx={{ py: { xs: 6, md: 10 } }}>
+          <Box sx={{ display: "flex", justifyContent: "center", mb: 6 }}>
+            <Typography
+              variant="h3"
               sx={{
-                bgcolor: "#0d3b24",
-                color: "#fff",
-                borderRadius: 4,
-                p: 2,
-                minHeight: 180,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
+                fontWeight: 700,
+                mb: 3,
+                textAlign: "center",
+                color: "#424240",
+                display: "inline-block",
+                borderBottom: "6px solid #424240",
+                pb: "4px",
               }}
+              className="kaisei"
             >
-              <Image
-                src="/placeholder.jpg"
-                alt="Project 1"
-                width={500}   // required
-                height={300}  // required
-                style={{ width: "100%", height: "auto", borderRadius: 8, marginBottom: 16 }}
-              />
-              <Typography variant="h6">WE HELP YOU REDUCE CONSTRUCTION COSTS</Typography>
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, sm: 6, md: 4 }}>
-            <Box
-              sx={{
-                bgcolor: "#1e5631",
-                color: "#fff",
-                borderRadius: 4,
-                p: 2,
-                minHeight: 180,
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Image
-                src="/placeholder.jpg"
-                alt="Project 1"
-                width={500}   // required
-                height={300}  // required
-                style={{ width: "100%", height: "auto", borderRadius: 8, marginBottom: 16 }}
-              />
-              <Typography variant="h6">METRO PROJECTS</Typography>
-              <Button variant="contained" color="warning" sx={{ mt: 1, borderRadius: 8 }}>
-                View Project
-              </Button>
-            </Box>
-          </Grid>
-          <Grid size={{ xs: 12, sm: 12, md: 4 }}>
-            <Box
-              sx={{
-                bgcolor: "#b2b2b2",
-                color: "#fff",
-                borderRadius: 4,
-                p: 2,
-                minHeight: 180,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Typography variant="h6" color="#333">
-                Coming Soon…
-              </Typography>
-            </Box>
-          </Grid>
-        </Grid>
-      </Container>
+            Projects
+          </Typography>
+          </Box>
 
-      <Footer />
+          <Grid container spacing={4} justifyContent="center">
+            {/* Project 1 */}
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Box
+                sx={{
+                  position: "relative",
+                  borderRadius: 4,
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  "&:hover .overlay": { opacity: 1 },
+                }}
+              >
+                <Image
+                  src={draftTech_Project}
+                  alt="Project 1"
+                  width={500}
+                  height={300}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+                <Box
+                  className="overlay"
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    bgcolor: "rgba(0,0,0,0.6)",
+                    color: "#fff",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    opacity: 0,
+                    transition: "opacity 0.3s ease-in-out",
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 2, textAlign: "center" }}>
+                    DRAFTECH
+                  </Typography>
+                  <Button variant="contained" color="warning" sx={{ borderRadius: 8 }} href="https://draftectfinal.vercel.app">
+                    View Project
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* Project 2 */}
+            <Grid size={{ xs: 12, sm: 6, md: 4 }}>
+              <Box
+                sx={{
+                  position: "relative",
+                  borderRadius: 4,
+                  overflow: "hidden",
+                  cursor: "pointer",
+                  "&:hover .overlay": { opacity: 1 },
+                }}
+              >
+                <Image
+                  src={Metro_Project}
+                  alt="Project 2"
+                  width={500}
+                  height={300}
+                  style={{ width: "100%", height: "auto", display: "block" }}
+                />
+                <Box
+                  className="overlay"
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    bgcolor: "rgba(0,0,0,0.6)",
+                    color: "#fff",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    opacity: 0,
+                    transition: "opacity 0.3s ease-in-out",
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 2 }}>
+                    METRO PROJECTS
+                  </Typography>
+                  <Button variant="contained" color="warning" sx={{ borderRadius: 8 }} href="https://metroprojects.ph/">
+                    View Project
+                  </Button>
+                </Box>
+              </Box>
+            </Grid>
+
+            {/* Coming Soon */}
+            <Grid size={{ xs: 12, sm: 12, md: 4 }}>
+              <Box
+                sx={{
+                  bgcolor: "#b2b2b2",
+                  color: "#fff",
+                  borderRadius: 4,
+                  p: 2,
+                  minHeight: 180,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Typography variant="h6" color="#333">
+                  Coming Soon…
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+        </Container>
+      </Box>
+
+      <Box id="contact">
+        <Footer />
+      </Box>
+      
     </>
   );
 }
