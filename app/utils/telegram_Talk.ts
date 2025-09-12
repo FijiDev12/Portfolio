@@ -16,8 +16,15 @@ export const sendTelegramMessage = async (message: string) => {
 
     
     return response.data;
-  } catch (error : any) {
-    console.error("Error sending message to Telegram:", error.response?.data || error.message);
-    throw error;
+  } catch (error: unknown) {
+    // Narrow the error type safely
+    if (axios.isAxiosError(error)) {
+      console.error("Error sending message to Telegram:", error.response?.data || error.message);
+    } else if (error instanceof Error) {
+      console.error("Error sending message to Telegram:", error.message);
+    } else {
+      console.error("Unknown error sending message to Telegram:", error);
+    }
+    throw error; // rethrow for upstream handling
   }
 };

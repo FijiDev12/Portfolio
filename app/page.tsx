@@ -30,33 +30,31 @@ const items = [
 ];
 
 export default function Home() {
-    // Modal state
-  const [isLetsTalkModalOpen, setIsLetsTalkModalOpen] = useState(false);
+// Modal state
+  const [isLetsTalkModalOpen, setIsLetsTalkModalOpen] = useState<boolean>(false);
 
-  // Open modal
-  const openLetsTalkModal = () => setIsLetsTalkModalOpen(true);
-
-  // Close modal
-  const closeLetsTalkModal = () => setIsLetsTalkModalOpen(false);
+  // Open / Close modal
+  const openLetsTalkModal = () => setIsLetsTalkModalOpen(true as const);
+  const closeLetsTalkModal = () => setIsLetsTalkModalOpen(false as const);
 
   // Handle form submission
   const handleLetsTalkSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     const formData = new FormData(event.currentTarget);
-    const email = formData.get("email") || "";
-    const subject = formData.get("subject") || "";
-    const message = formData.get("message") || "";
+    const email = formData.get("email")?.toString() || "";
+    const subject = formData.get("subject")?.toString() || "";
+    const message = formData.get("message")?.toString() || "";
 
     const telegramMessage = `Email: ${email}\nSubject: ${subject}\nMessage: ${message}`;
 
     try {
       await sendTelegramMessage(telegramMessage);
-      toast.success("Message sent successfully! ✅"); // <-- toast here
+      toast.success("Message sent successfully! ✅");
       closeLetsTalkModal();
     } catch (err) {
       console.error("Failed to send Telegram message:", err);
-      toast.error("Failed to send message. ❌"); // <-- error toast
+      toast.error("Failed to send message. ❌");
     }
   };
 
@@ -83,7 +81,7 @@ export default function Home() {
           component="form"
           onSubmit={handleLetsTalkSubmit}
           sx={{
-            position: "absolute" as "absolute",
+            position: "absolute",
             top: "50%",
             left: "50%",
             transform: "translate(-50%, -50%)",
